@@ -15,9 +15,10 @@ public class MainController {
         return "introduceme";
     }
 
+    @ResponseBody
     @GetMapping("/json")
     public String json() {
-        return "test";
+        return "{\"age\":4,\"name\":\"김태우\"}";
     }
 
 }
