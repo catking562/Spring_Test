@@ -27,8 +27,9 @@ public class MainController1 {
     }
 
     @GetMapping("/get/users/{id}")
-    public UserData getusers(@PathVariable int id) {
-        return DataManager.getUserData(id);
+    public ResponseEntity<UserData> getusers(@PathVariable int id) {
+        UserData ud = DataManager.getUserData(id);
+        return new ResponseEntity<>(ud, ud!=null?HttpStatus.resolve(200):HttpStatus.resolve(404));
     }
 
     @PostMapping("/create/users")
@@ -37,10 +38,10 @@ public class MainController1 {
     }
 
     @PutMapping("/edit/users/{id}")
-    public boolean editusers(@PathVariable int id, @RequestBody Map<String, Object> bodymap) {
+    public ResponseEntity<Boolean> editusers(@PathVariable int id, @RequestBody Map<String, Object> bodymap) {
         UserData before = DataManager.getUserData(id);
         if(before==null) {
-            return false;
+            return new ResponseEntity<>(false, HttpStatus.resolve(404));
         }
         Object data = bodymap.get("age");
         if(data instanceof Integer i) {
@@ -54,7 +55,7 @@ public class MainController1 {
         if(data instanceof String str) {
             before.setPW(str);
         }
-        return true;
+        return new ResponseEntity<>(true, HttpStatus.resolve(200));
     }
 
     @DeleteMapping("/delete/users/{id}")
@@ -69,8 +70,9 @@ public class MainController1 {
     }
 
     @GetMapping("/get/boards/{id}")
-    public BoardData getboards(@PathVariable int id) {
-        return DataManager.getBoard(id);
+    public ResponseEntity<BoardData> getboards(@PathVariable int id) {
+        BoardData data = DataManager.getBoard(id);
+        return new ResponseEntity<>(data, data!=null?HttpStatus.resolve(200):HttpStatus.resolve(404));
     }
 
     @PostMapping("/create/boards")
@@ -90,8 +92,9 @@ public class MainController1 {
     }
 
     @GetMapping("/get/objects/{id}")
-    public BoardObjectData getobjects(@PathVariable int id) {
-        return DataManager.getBoardObject(id);
+    public ResponseEntity<BoardObjectData> getobjects(@PathVariable int id) {
+        BoardObjectData data = DataManager.getBoardObject(id);
+        return new ResponseEntity<>(data, data!=null?HttpStatus.resolve(200):HttpStatus.resolve(404));
     }
 
     @PostMapping("/create/objects")
@@ -100,10 +103,10 @@ public class MainController1 {
     }
 
     @PutMapping("/edit/objects/{id}")
-    public boolean editobjects(@PathVariable int id, @RequestBody Map<String, Object> bodymap) {
+    public ResponseEntity<Boolean> editobjects(@PathVariable int id, @RequestBody Map<String, Object> bodymap) {
         BoardObjectData data = DataManager.getBoardObject(id);
         if(data==null) {
-            return false;
+            return new ResponseEntity<>(false, HttpStatus.resolve(404));
         }
         Object obj = bodymap.get("title");
         if(obj instanceof String str) {
@@ -113,7 +116,7 @@ public class MainController1 {
         if(obj instanceof String str) {
             data.setContext(str);
         }
-        return true;
+        return new ResponseEntity<>(true, HttpStatus.resolve(200));
     }
 
     @DeleteMapping("/delete/objects/{id}")
