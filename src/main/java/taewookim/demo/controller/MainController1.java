@@ -1,5 +1,8 @@
 package taewookim.demo.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import taewookim.demo.DemoApplication;
 import taewookim.demo.data.BoardData;
@@ -29,8 +32,8 @@ public class MainController1 {
     }
 
     @PostMapping("/create/users")
-    public int createusers() {
-        return DataManager.createUser();
+    public ResponseEntity<Integer> createusers() {
+        return new ResponseEntity<>(DataManager.createUser(), HttpStatus.CREATED);
     }
 
     @PutMapping("/edit/users/{id}")
@@ -55,8 +58,9 @@ public class MainController1 {
     }
 
     @DeleteMapping("/delete/users/{id}")
-    public void deleteusers(@PathVariable int id) {
+    public ResponseEntity<Boolean> deleteusers(@PathVariable int id) {
         DataManager.deleteUser(id);
+        return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/get/boards")
@@ -70,13 +74,14 @@ public class MainController1 {
     }
 
     @PostMapping("/create/boards")
-    public int createboard() {
-        return DataManager.createBoard();
+    public ResponseEntity<Integer> createboard() {
+        return new ResponseEntity<>(DataManager.createBoard(), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/boards/{id}")
-    public void deleteboards(@PathVariable int id) {
+    public ResponseEntity<Boolean> deleteboards(@PathVariable int id) {
         DataManager.deleteBoard(id);
+        return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/get/objects")
@@ -90,8 +95,8 @@ public class MainController1 {
     }
 
     @PostMapping("/create/objects")
-    public int createobjects() {
-        return DataManager.createBoardObject();
+    public ResponseEntity<Integer> createobjects() {
+        return new ResponseEntity<>(DataManager.createBoardObject(), HttpStatus.CREATED);
     }
 
     @PutMapping("/edit/objects/{id}")
@@ -112,8 +117,9 @@ public class MainController1 {
     }
 
     @DeleteMapping("/delete/objects/{id}")
-    public void deleteobjects(@PathVariable int id) {
+    public ResponseEntity<Boolean> deleteobjects(@PathVariable int id) {
         DataManager.deleteBoardObject(id);
+        return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/ispw/{userid}")
