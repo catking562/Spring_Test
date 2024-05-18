@@ -1,12 +1,12 @@
 package taewookim.demo.data;
 
-public class BoardObjectData {
+public class TwitterData {
 
     private final int id;
     private String title;
     private String context;
 
-    public BoardObjectData(int id) {
+    public TwitterData(int id) {
         this.id = id;
         title = new StringBuilder("boardobject-").append(id).toString();
         context = new StringBuilder("context-").append(id).toString();

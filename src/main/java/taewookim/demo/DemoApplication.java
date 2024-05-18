@@ -2,6 +2,8 @@ package taewookim.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.HandlerMapping;
 import taewookim.demo.data.DataManager;
 import taewookim.demo.data.UserData;
 

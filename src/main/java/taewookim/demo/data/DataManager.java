@@ -8,7 +8,7 @@ public class DataManager {
 
     private static Map<Integer, UserData> usermap = new HashMap<>();
     private static Map<Integer, BoardData> boardmap = new HashMap<>();
-    private static Map<Integer, BoardObjectData> objectmap = new HashMap<>();
+    private static Map<Integer, TwitterData> objectmap = new HashMap<>();
 
     public static Set<Integer> getuserdatas() {
         return usermap.keySet();
@@ -52,24 +52,24 @@ public class DataManager {
         boardmap.remove(id);
     }
 
-    public static Set<Integer> getboardobjectdatas() {
+    public static Set<Integer> getTwitterdatas() {
         return objectmap.keySet();
     }
 
-    public static int createBoardObject() {
+    public static int createTwitter() {
         int id = 0;
         while(objectmap.get(id)!=null) {
             id++;
         }
-        objectmap.put(id, new BoardObjectData(id));
+        objectmap.put(id, new TwitterData(id));
         return id;
     }
 
-    public static BoardObjectData getBoardObject(int id) {
+    public static TwitterData getTwitter(int id) {
         return objectmap.get(id);
     }
 
-    public static void deleteBoardObject(int id) {
+    public static void deleteTwitter(int id) {
         objectmap.remove(id);
     }
 
