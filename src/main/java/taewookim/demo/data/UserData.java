@@ -10,6 +10,7 @@ public class UserData {
     private String nickname;
     private int age;
     private final ArrayList<Integer> boardobjects;
+    private String email;
     @JsonIgnore
     private String pw;
 
@@ -17,7 +18,7 @@ public class UserData {
         this.id = id;
         this.pw = new StringBuilder(id*id).toString();
         this.nickname = new StringBuilder("user-").append(id).toString();
-        this.age = id;
+        this.age = 0;
         boardobjects = new ArrayList<>();
     }
 
@@ -31,6 +32,14 @@ public class UserData {
 
     public int getAge() {
         return age;
+    }
+
+    public String getEmail() {
+        return email!=null?email:"정보없음";
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setNickName(String nickname) {
