@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import taewookim.demo.data.DataManager;
+import taewookim.demo.data.ViewArticleService;
 
 import java.util.Arrays;
 
@@ -14,34 +15,27 @@ public class MainController {
 
     @GetMapping("/introduce")
     public String introduce(@RequestParam(name = "name", required = false, defaultValue = "김태우") String name, Model model) {
-        model.addAttribute("name", name);
-        return "introduceme";
+        return ViewArticleService.introduce(name, model);
     }
 
     @GetMapping("/viewer/users")
     public String viewUsers(Model model) {
-        model.addAttribute("userlist", DataManager.getUsersArticle());
-        return "viewusers";
+        return ViewArticleService.viewUsers(model);
     }
 
     @GetMapping("/viewer/boards")
     public String viewBoards(Model model) {
-        model.addAttribute("boardlist", DataManager.getBoardsArticle());
-        return "viewboards";
+        return ViewArticleService.viewBoards(model);
     }
 
     @GetMapping("/viewer/twitters")
     public String viewTwitters(Model model) {
-        model.addAttribute("twitterlist", DataManager.getTwittersArticle());
-        model.addAttribute("boardname", "");
-        return "viewtwitters";
+        return ViewArticleService.viewTwitters(model);
     }
 
     @GetMapping("/viewer/twitters/{id}")
     public String viewTwitters(Model model, @PathVariable int id) {
-        model.addAttribute("twitterlist", DataManager.getBoardData(id).getTwitterDatas());
-        model.addAttribute("boardname", DataManager.getBoardData(id).getName());
-        return "viewtwitters";
+        return ViewArticleService.viewTwitters(model, id);
     }
 
 }
