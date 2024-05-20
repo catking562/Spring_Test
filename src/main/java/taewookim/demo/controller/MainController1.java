@@ -66,28 +66,28 @@ public class MainController1 {
         return DataManager.deleteBoard(id);
     }
 
-    @GetMapping("/objects")
+    @GetMapping("/twitters")
     public Set<Integer> getTwitterss() {
         return DataManager.getTwitterdatas();
     }
 
-    @GetMapping("/objects/{id}")
+    @GetMapping("/twitters/{id}")
     public ResponseEntity<TwitterData> getTwitter(@PathVariable int id) {
         return DataManager.getTwitter(id);
 
     }
 
-    @PostMapping("/objects")
+    @PostMapping("/twitters")
     public ResponseEntity<Integer> createTwitter(@RequestBody Map<String, Object> bodymap) {
         return DataManager.createTwitter(bodymap);
     }
 
-    @PutMapping("/objects/{id}")
+    @PutMapping("/twitters/{id}")
     public ResponseEntity<Boolean> editTwitter(@PathVariable int id, @RequestBody Map<String, Object> bodymap) {
         return DataManager.editTwitter(id, bodymap);
     }
 
-    @DeleteMapping("/objects/{id}")
+    @DeleteMapping("/twitters/{id}")
     public ResponseEntity<Boolean> deleteTwitter(@PathVariable int id) {
         return DataManager.deleteTwitter(id);
     }
@@ -95,6 +95,21 @@ public class MainController1 {
     @GetMapping("/ispw/{userid}")
     public ResponseEntity<Boolean> isPW(@RequestParam(name="pw") String pw, @PathVariable int userid) {
         return DataManager.isPW(userid, pw);
+    }
+
+    @GetMapping("/users/article")
+    public UserData[] getUsersArticle() {
+        return DataManager.getUsersArticle();
+    }
+
+    @GetMapping("/twitters/article")
+    public TwitterData[] getTwittersArticle() {
+        return DataManager.getTwittersArticle();
+    }
+
+    @GetMapping("/boards/article")
+    public BoardData[] getBoardsArticle() {
+        return DataManager.getBoardsArticle();
     }
 
 }

@@ -164,4 +164,34 @@ public class DataManager {
         return new ResponseEntity<>(data.isPW(pw), HttpStatus.valueOf(200));
     }
 
+    public static UserData[] getUsersArticle() {
+        Integer[] ids = (Integer[]) getuserdatas().toArray();
+        int size = ids.length;
+        UserData[] data = new UserData[size];
+        for(int i = 0; i<size; i++) {
+            data[i] = usermap.get(ids[i]);
+        }
+        return data;
+    }
+
+    public static TwitterData[] getTwittersArticle() {
+        Integer[] ids = (Integer[]) getTwitterdatas().toArray();
+        int size = ids.length;
+        TwitterData[] data = new TwitterData[size];
+        for(int i = 0; i<size; i++) {
+            data[i] = twiitermap.get(ids[i]);
+        }
+        return data;
+    }
+
+    public static BoardData[] getBoardsArticle() {
+        Integer[] ids = (Integer[]) getTwitterdatas().toArray();
+        int size = ids.length;
+        BoardData[] data = new BoardData[size];
+        for(int i = 0; i<size; i++) {
+            data[i] = boardmap.get(ids[i]);
+        }
+        return data;
+    }
+
 }
