@@ -22,6 +22,7 @@ public class DemoApplication {
 		userData.setAge(20);
 		userData.setPW("i can't write this");
 		userData.setNickName("김태우");
+		userData.setEmail("taewookim562@gmail.com");
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
