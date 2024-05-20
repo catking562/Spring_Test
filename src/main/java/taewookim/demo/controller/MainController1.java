@@ -21,23 +21,23 @@ public class MainController1 {
         return DataManager.getUserData(DemoApplication.taewookimid);
     }
 
-    @GetMapping("/get/users")
+    @GetMapping("/users")
     public Set<Integer> getUsers() {
         return DataManager.getuserdatas();
     }
 
-    @GetMapping("/get/users/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserData> getUser(@PathVariable int id) {
         UserData ud = DataManager.getUserData(id);
         return new ResponseEntity<>(ud, ud!=null?HttpStatus.resolve(200):HttpStatus.resolve(404));
     }
 
-    @PostMapping("/create/users")
+    @PostMapping("/users")
     public ResponseEntity<Integer> createUser() {
         return new ResponseEntity<>(DataManager.createUser(), HttpStatus.CREATED);
     }
 
-    @PutMapping("/edit/users/{id}")
+    @PutMapping("/users/{id}")
     public ResponseEntity<Boolean> editUser(@PathVariable int id, @RequestBody Map<String, Object> bodymap) {
         UserData before = DataManager.getUserData(id);
         if(before==null) {
@@ -58,51 +58,51 @@ public class MainController1 {
         return new ResponseEntity<>(true, HttpStatus.resolve(200));
     }
 
-    @DeleteMapping("/delete/users/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<Boolean> deleteUser(@PathVariable int id) {
         DataManager.deleteUser(id);
         return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/get/boards")
+    @GetMapping("/boards")
     public Set<Integer> getBoards() {
         return DataManager.getboarddatas();
     }
 
-    @GetMapping("/get/boards/{id}")
+    @GetMapping("/boards/{id}")
     public ResponseEntity<BoardData> getBoard(@PathVariable int id) {
         BoardData data = DataManager.getBoard(id);
         return new ResponseEntity<>(data, data!=null?HttpStatus.resolve(200):HttpStatus.resolve(404));
     }
 
-    @PostMapping("/create/boards")
+    @PostMapping("/boards")
     public ResponseEntity<Integer> createBoard() {
         return new ResponseEntity<>(DataManager.createBoard(), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete/boards/{id}")
+    @DeleteMapping("/boards/{id}")
     public ResponseEntity<Boolean> deleteBoard(@PathVariable int id) {
         DataManager.deleteBoard(id);
         return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/get/objects")
+    @GetMapping("/objects")
     public Set<Integer> getTwitterss() {
         return DataManager.getTwitterdatas();
     }
 
-    @GetMapping("/get/objects/{id}")
+    @GetMapping("/objects/{id}")
     public ResponseEntity<TwitterData> getTwitter(@PathVariable int id) {
         TwitterData data = DataManager.getTwitter(id);
         return new ResponseEntity<>(data, data!=null?HttpStatus.resolve(200):HttpStatus.resolve(404));
     }
 
-    @PostMapping("/create/objects")
+    @PostMapping("/objects")
     public ResponseEntity<Integer> createTwitter() {
         return new ResponseEntity<>(DataManager.createTwitter(), HttpStatus.CREATED);
     }
 
-    @PutMapping("/edit/objects/{id}")
+    @PutMapping("/objects/{id}")
     public ResponseEntity<Boolean> editTwitter(@PathVariable int id, @RequestBody Map<String, Object> bodymap) {
         TwitterData data = DataManager.getTwitter(id);
         if(data==null) {
@@ -119,7 +119,7 @@ public class MainController1 {
         return new ResponseEntity<>(true, HttpStatus.resolve(200));
     }
 
-    @DeleteMapping("/delete/objects/{id}")
+    @DeleteMapping("/objects/{id}")
     public ResponseEntity<Boolean> deleteTwitter(@PathVariable int id) {
         DataManager.deleteTwitter(id);
         return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);

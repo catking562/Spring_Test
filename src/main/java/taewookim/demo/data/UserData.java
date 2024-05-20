@@ -9,7 +9,7 @@ public class UserData {
     private final int id;
     private String nickname;
     private int age;
-    private final ArrayList<Integer> boardobjects;
+    private final ArrayList<Integer> twitters;
     private String email;
     @JsonIgnore
     private String pw;
@@ -19,7 +19,11 @@ public class UserData {
         this.pw = new StringBuilder(id*id).toString();
         this.nickname = new StringBuilder("user-").append(id).toString();
         this.age = 0;
-        boardobjects = new ArrayList<>();
+        twitters = new ArrayList<>();
+    }
+
+    public ArrayList<Integer> getTwitters() {
+        return twitters;
     }
 
     public int getId() {
@@ -58,12 +62,12 @@ public class UserData {
         return pw.equalsIgnoreCase(this.pw);
     }
 
-    public void addBoardObject(int objectid) {
-        boardobjects.add(objectid);
+    public void addTwitter(int objectid) {
+        twitters.add(objectid);
     }
 
-    public void removeBoardObject(int objectid) {
-        boardobjects.remove(objectid);
+    public void removeTwitter(int objectid) {
+        twitters.remove(objectid);
     }
 
 }

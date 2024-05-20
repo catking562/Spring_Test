@@ -6,12 +6,12 @@ public class BoardData {
 
     private final int id;
     private String name;
-    private final ArrayList<Integer> boardobjects;
+    private final ArrayList<Integer> twitters;
 
     public BoardData(int id, String name) {
         this.id = id;
         this.name = name;
-        boardobjects = new ArrayList<>();
+        twitters = new ArrayList<>();
     }
 
     public int getId() {
@@ -26,12 +26,16 @@ public class BoardData {
         this.name = name;
     }
 
-    public void addBoardObject(int objectid) {
-        boardobjects.add(objectid);
+    public ArrayList<Integer> getTwitters() {
+        return twitters;
     }
 
-    public void removeBoardObject(int objectid) {
-        boardobjects.remove(objectid);
+    public void addTwitter(int objectid) {
+        twitters.add(objectid);
+    }
+
+    public void removeTwitter(int objectid) {
+        twitters.remove(objectid);
     }
 
 }
