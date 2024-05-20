@@ -28,40 +28,22 @@ public class MainController1 {
 
     @GetMapping("/users/{id}")
     public ResponseEntity<UserData> getUser(@PathVariable int id) {
-        UserData ud = DataManager.getUserData(id);
-        return new ResponseEntity<>(ud, ud!=null?HttpStatus.resolve(200):HttpStatus.resolve(404));
+        return DataManager.getUser(id);
     }
 
     @PostMapping("/users")
     public ResponseEntity<Integer> createUser() {
-        return new ResponseEntity<>(DataManager.createUser(), HttpStatus.CREATED);
+        return DataManager.createUser();
     }
 
     @PutMapping("/users/{id}")
     public ResponseEntity<Boolean> editUser(@PathVariable int id, @RequestBody Map<String, Object> bodymap) {
-        UserData before = DataManager.getUserData(id);
-        if(before==null) {
-            return new ResponseEntity<>(false, HttpStatus.resolve(404));
-        }
-        Object data = bodymap.get("age");
-        if(data instanceof Integer i) {
-            before.setAge(i);
-        }
-        data = bodymap.get("nickname");
-        if(data instanceof String str) {
-            before.setNickName(str);
-        }
-        data = bodymap.get("pw");
-        if(data instanceof String str) {
-            before.setPW(str);
-        }
-        return new ResponseEntity<>(true, HttpStatus.resolve(200));
+        return DataManager.editUser(id, bodymap);
     }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Boolean> deleteUser(@PathVariable int id) {
-        DataManager.deleteUser(id);
-        return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
+        return DataManager.deleteUser(id);
     }
 
     @GetMapping("/boards")
@@ -71,19 +53,17 @@ public class MainController1 {
 
     @GetMapping("/boards/{id}")
     public ResponseEntity<BoardData> getBoard(@PathVariable int id) {
-        BoardData data = DataManager.getBoard(id);
-        return new ResponseEntity<>(data, data!=null?HttpStatus.resolve(200):HttpStatus.resolve(404));
+        return DataManager.getBoard(id);
     }
 
     @PostMapping("/boards")
-    public ResponseEntity<Integer> createBoard() {
-        return new ResponseEntity<>(DataManager.createBoard(), HttpStatus.CREATED);
+    public ResponseEntity<Integer> createBoard(@RequestBody Map<String, Object> bodymap) {
+        return DataManager.createBoard(bodymap);
     }
 
     @DeleteMapping("/boards/{id}")
     public ResponseEntity<Boolean> deleteBoard(@PathVariable int id) {
-        DataManager.deleteBoard(id);
-        return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
+        return DataManager.deleteBoard(id);
     }
 
     @GetMapping("/objects")
@@ -93,45 +73,28 @@ public class MainController1 {
 
     @GetMapping("/objects/{id}")
     public ResponseEntity<TwitterData> getTwitter(@PathVariable int id) {
-        TwitterData data = DataManager.getTwitter(id);
-        return new ResponseEntity<>(data, data!=null?HttpStatus.resolve(200):HttpStatus.resolve(404));
+        return DataManager.getTwitter(id);
+
     }
 
     @PostMapping("/objects")
-    public ResponseEntity<Integer> createTwitter() {
-        return new ResponseEntity<>(DataManager.createTwitter(), HttpStatus.CREATED);
+    public ResponseEntity<Integer> createTwitter(@RequestBody Map<String, Object> bodymap) {
+        return DataManager.createTwitter(bodymap);
     }
 
     @PutMapping("/objects/{id}")
     public ResponseEntity<Boolean> editTwitter(@PathVariable int id, @RequestBody Map<String, Object> bodymap) {
-        TwitterData data = DataManager.getTwitter(id);
-        if(data==null) {
-            return new ResponseEntity<>(false, HttpStatus.resolve(404));
-        }
-        Object obj = bodymap.get("title");
-        if(obj instanceof String str) {
-            data.setTitle(str);
-        }
-        obj = bodymap.get("context");
-        if(obj instanceof String str) {
-            data.setContext(str);
-        }
-        return new ResponseEntity<>(true, HttpStatus.resolve(200));
+        return DataManager.editTwitter(id, bodymap);
     }
 
     @DeleteMapping("/objects/{id}")
     public ResponseEntity<Boolean> deleteTwitter(@PathVariable int id) {
-        DataManager.deleteTwitter(id);
-        return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
+        return DataManager.deleteTwitter(id);
     }
 
     @GetMapping("/ispw/{userid}")
-    public boolean isPW(@RequestParam(name="pw") String pw, @PathVariable int userid) {
-        UserData data = DataManager.getUserData(userid);
-        if(data==null) {
-            return false;
-        }
-        return data.isPW(pw);
+    public ResponseEntity<Boolean> isPW(@RequestParam(name="pw") String pw, @PathVariable int userid) {
+        return DataManager.isPW(userid, pw);
     }
 
 }
