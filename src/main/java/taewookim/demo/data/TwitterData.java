@@ -31,6 +31,10 @@ public class TwitterData {
         return new StringBuilder(LocalDate.now(zi).toString()).append(" ").append(LocalTime.now(zi)).toString();
     }
 
+    public String getWriterName() {
+        return DataManager.getUserData(writer).getNickName();
+    }
+
     public int getWriter() {
         return writer;
     }

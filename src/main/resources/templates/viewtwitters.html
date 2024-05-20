@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>게시판 이름: <h th:text="${boardname}" /></h2>
+<h th:each="twitter : ${twitterlist}">
+  <h1>제목: <h th:text="${twitter.getTitle()}" /></h1>
+  <h3>내용: <h th:text="${twitter.getContext()}" /></h3>
+  <h6>작성자: <h th:text="${twitter.getWriterName()}" /> | 작성일: <h th:text="${twitter.getWritingDate()}" /> | 마지막 수정: <h th:text="${twitter.getEditingDate()}" /></h6>
+  <br>
+</h>
+</body>
+</html>

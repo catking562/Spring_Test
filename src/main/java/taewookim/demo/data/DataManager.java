@@ -87,6 +87,10 @@ public class DataManager {
         return new ResponseEntity<>(data, data!=null?HttpStatus.resolve(200):HttpStatus.resolve(404));
     }
 
+    public static BoardData getBoardData(int boardid) {
+        return boardmap.get(boardid);
+    }
+
     public static ResponseEntity<Integer> createBoard(Map<String, Object> bodymap) {
         Object boardname = bodymap.get("name");
         if(boardname instanceof String str) {
@@ -118,6 +122,10 @@ public class DataManager {
     public static ResponseEntity<TwitterData> getTwitter(int twitterid) {
         TwitterData data = twiitermap.get(twitterid);
         return new ResponseEntity<>(data, data!=null?HttpStatus.resolve(200):HttpStatus.resolve(404));
+    }
+
+    public static TwitterData getTwitterData(int twitterid) {
+        return twiitermap.get(twitterid);
     }
 
     public static ResponseEntity<Integer> createTwitter(Map<String, Object> bodymap) {

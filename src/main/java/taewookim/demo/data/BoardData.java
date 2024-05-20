@@ -14,6 +14,15 @@ public class BoardData {
         twitters = new ArrayList<>();
     }
 
+    public TwitterData[] getTwitterDatas() {
+        int size = twitters.size();
+        TwitterData[] datas = new TwitterData[size];
+        for(int i = 0; i<size; i++) {
+            datas[i] = DataManager.getTwitterData(twitters.get(i));
+        }
+        return datas;
+    }
+
     public int getId() {
         return id;
     }
