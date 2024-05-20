@@ -16,7 +16,8 @@ public class DemoApplication {
 	public static int taewookimid;
 
 	public static void main(String[] args) {
-		taewookimid = DataManager.createUser();
+		DataManager.createUser();
+		taewookimid = 0;
 		UserData userData = DataManager.getUserData(taewookimid);
 		userData.setAge(20);
 		userData.setPW("i can't write this");
