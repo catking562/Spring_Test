@@ -2,6 +2,7 @@ package taewookim.demo.data;
 
 import javax.xml.crypto.Data;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 
@@ -12,8 +13,8 @@ public class TwitterData {
     private final int board;
     private String title;
     private String context;
-    private final LocalDate writingdate;
-    private LocalDate editingdate;
+    private final String writingdate;
+    private String editingdate;
 
     public TwitterData(int id, int writer, int board) {
         this.id = id;
@@ -21,8 +22,13 @@ public class TwitterData {
         context = new StringBuilder("context-").append(id).toString();
         this.writer = writer;
         this.board = board;
-        writingdate = LocalDate.now(ZoneId.of("+9"));
+        writingdate = getNowDate();
         editingdate = writingdate;
+    }
+
+    public static String getNowDate() {
+        ZoneId zi = ZoneId.of("+9");
+        return new StringBuilder(LocalDate.now(zi).toString()).append(" ").append(LocalTime.now(zi)).toString();
     }
 
     public int getWriter() {
@@ -33,16 +39,16 @@ public class TwitterData {
         return board;
     }
 
-    public LocalDate getWritingDate() {
+    public String getWritingDate() {
         return writingdate;
     }
 
-    public LocalDate getEditingDate() {
+    public String getEditingDate() {
         return editingdate;
     }
 
     public void updateEditDate() {
-        editingdate = LocalDate.now(ZoneId.of("+9"));
+        editingdate = getNowDate();
     }
 
     public int getId() {

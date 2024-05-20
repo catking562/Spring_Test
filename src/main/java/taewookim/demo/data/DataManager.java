@@ -60,6 +60,10 @@ public class DataManager {
         if(data instanceof String str) {
             before.setPW(str);
         }
+        data = bodymap.get("email");
+        if(data instanceof String str) {
+            before.setEmail(str);
+        }
         return new ResponseEntity<>(true, HttpStatus.resolve(200));
     }
 
@@ -70,7 +74,10 @@ public class DataManager {
         }
         usermap.remove(userid);
         for(int i : data.getTwitters()) {
-            deleteTwitter(i);
+            TwitterData twit = twiitermap.get(i);
+            twiitermap.remove(i);
+            boardmap.get(twit.getBoard()).removeTwitter(i);
+            usermap.get(twit.getWriter()).removeTwitter(i);
         }
         return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
     }
@@ -100,7 +107,10 @@ public class DataManager {
         }
         boardmap.remove(id);
         for(int i : data.getTwitters()) {
-            deleteTwitter(i);
+            TwitterData twit = twiitermap.get(i);
+            twiitermap.remove(i);
+            boardmap.get(twit.getBoard()).removeTwitter(i);
+            usermap.get(twit.getWriter()).removeTwitter(i);
         }
         return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
     }
@@ -134,6 +144,7 @@ public class DataManager {
         if(data==null) {
             return new ResponseEntity<>(false, HttpStatus.resolve(404));
         }
+        data.updateEditDate();
         Object obj = bodymap.get("title");
         if(obj instanceof String str) {
             data.setTitle(str);
@@ -165,31 +176,31 @@ public class DataManager {
     }
 
     public static UserData[] getUsersArticle() {
-        Integer[] ids = (Integer[]) getuserdatas().toArray();
+        Object[] ids = getuserdatas().toArray();
         int size = ids.length;
         UserData[] data = new UserData[size];
         for(int i = 0; i<size; i++) {
-            data[i] = usermap.get(ids[i]);
+            data[i] = usermap.get((Integer) ids[i]);
         }
         return data;
     }
 
     public static TwitterData[] getTwittersArticle() {
-        Integer[] ids = (Integer[]) getTwitterdatas().toArray();
+        Object[] ids = getTwitterdatas().toArray();
         int size = ids.length;
         TwitterData[] data = new TwitterData[size];
         for(int i = 0; i<size; i++) {
-            data[i] = twiitermap.get(ids[i]);
+            data[i] = twiitermap.get((Integer) ids[i]);
         }
         return data;
     }
 
     public static BoardData[] getBoardsArticle() {
-        Integer[] ids = (Integer[]) getTwitterdatas().toArray();
+        Object[] ids = getboarddatas().toArray();
         int size = ids.length;
         BoardData[] data = new BoardData[size];
         for(int i = 0; i<size; i++) {
-            data[i] = boardmap.get(ids[i]);
+            data[i] = boardmap.get((Integer) ids[i]);
         }
         return data;
     }

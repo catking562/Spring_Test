@@ -66,7 +66,7 @@ public class UserData {
         twitters.add(objectid);
     }
 
-    public void removeTwitter(int objectid) {
+    public void removeTwitter(Integer objectid) {
         twitters.remove(objectid);
     }
 
