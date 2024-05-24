@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class BoardRepository {
 
-    Map<Integer, BoardData> boards = new HashMap<>();
+    private Map<Integer, BoardData> boards = new HashMap<>();
 
     public BoardRepository() {
 

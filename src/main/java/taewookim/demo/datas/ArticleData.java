@@ -28,10 +28,7 @@ public class ArticleData {
         ZoneId zi = ZoneId.of("+9");
         return new StringBuilder(LocalDate.now(zi).toString()).append(" ").append(LocalTime.now(zi)).toString();
     }
-
-    public String getWriterName() {
-        return DataManager.getUserData(writer).getNickName();
-    }
+    
 
     public int getWriter() {
         return writer;
