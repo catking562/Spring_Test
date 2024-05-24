@@ -6,19 +6,19 @@ public class BoardData {
 
     private final int id;
     private String name;
-    private final ArrayList<Integer> twitters;
+    private final ArrayList<Integer> articles;
 
     public BoardData(int id, String name) {
         this.id = id;
         this.name = name;
-        twitters = new ArrayList<>();
+        articles = new ArrayList<>();
     }
 
-    public TwitterData[] getTwitterDatas() {
-        int size = twitters.size();
-        TwitterData[] datas = new TwitterData[size];
+    public ArticleData[] getTwitterDatas() {
+        int size = articles.size();
+        ArticleData[] datas = new ArticleData[size];
         for(int i = 0; i<size; i++) {
-            datas[i] = DataManager.getTwitterData(twitters.get(i));
+            datas[i] = DataManager.getTwitterData(articles.get(i));
         }
         return datas;
     }
@@ -35,16 +35,16 @@ public class BoardData {
         this.name = name;
     }
 
-    public ArrayList<Integer> getTwitters() {
-        return twitters;
+    public ArrayList<Integer> getArticles() {
+        return articles;
     }
 
-    public void addTwitter(int objectid) {
-        twitters.add(objectid);
+    public void addArticle(int objectid) {
+        articles.add(objectid);
     }
 
-    public void removeTwitter(Integer objectid) {
-        twitters.remove(objectid);
+    public void removeArticle(Integer objectid) {
+        articles.remove(objectid);
     }
 
 }

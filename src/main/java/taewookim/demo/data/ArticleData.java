@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class TwitterData {
+public class ArticleData {
 
     private final int id;
     private final int writer;
@@ -16,7 +16,7 @@ public class TwitterData {
     private final String writingdate;
     private String editingdate;
 
-    public TwitterData(int id, int writer, int board) {
+    public ArticleData(int id, int writer, int board) {
         this.id = id;
         title = new StringBuilder("boardobject-").append(id).toString();
         context = new StringBuilder("context-").append(id).toString();

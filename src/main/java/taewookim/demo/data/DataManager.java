@@ -11,7 +11,7 @@ public class DataManager {
 
     private static Map<Integer, UserData> usermap = new HashMap<>();
     private static Map<Integer, BoardData> boardmap = new HashMap<>();
-    private static Map<Integer, TwitterData> twiitermap = new HashMap<>();
+    private static Map<Integer, ArticleData> articlemap = new HashMap<>();
 
     public static Set<Integer> getuserdatas() {
         return usermap.keySet();
@@ -25,8 +25,8 @@ public class DataManager {
         return boardmap.keySet();
     }
 
-    public static Set<Integer> getTwitterdatas() {
-        return twiitermap.keySet();
+    public static Set<Integer> getArticledatas() {
+        return articlemap.keySet();
     }
 
     public static ResponseEntity<UserData> getUser(int id) {
@@ -73,11 +73,11 @@ public class DataManager {
             return new ResponseEntity<>(false, HttpStatus.valueOf(404));
         }
         usermap.remove(userid);
-        for(int i : data.getTwitters()) {
-            TwitterData twit = twiitermap.get(i);
-            twiitermap.remove(i);
-            boardmap.get(twit.getBoard()).removeTwitter(i);
-            usermap.get(twit.getWriter()).removeTwitter(i);
+        for(int i : data.getArticles()) {
+            ArticleData twit = articlemap.get(i);
+            articlemap.remove(i);
+            boardmap.get(twit.getBoard()).removeArticle(i);
+            usermap.get(twit.getWriter()).removeArticle(i);
         }
         return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
     }
@@ -110,22 +110,22 @@ public class DataManager {
             return new ResponseEntity<>(true, HttpStatus.NOT_FOUND);
         }
         boardmap.remove(id);
-        for(int i : data.getTwitters()) {
-            TwitterData twit = twiitermap.get(i);
-            twiitermap.remove(i);
-            boardmap.get(twit.getBoard()).removeTwitter(i);
-            usermap.get(twit.getWriter()).removeTwitter(i);
+        for(int i : data.getArticles()) {
+            ArticleData twit = articlemap.get(i);
+            articlemap.remove(i);
+            boardmap.get(twit.getBoard()).removeArticle(i);
+            usermap.get(twit.getWriter()).removeArticle(i);
         }
         return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
     }
 
-    public static ResponseEntity<TwitterData> getTwitter(int twitterid) {
-        TwitterData data = twiitermap.get(twitterid);
+    public static ResponseEntity<ArticleData> getTwitter(int twitterid) {
+        ArticleData data = articlemap.get(twitterid);
         return new ResponseEntity<>(data, data!=null?HttpStatus.resolve(200):HttpStatus.resolve(404));
     }
 
-    public static TwitterData getTwitterData(int twitterid) {
-        return twiitermap.get(twitterid);
+    public static ArticleData getTwitterData(int twitterid) {
+        return articlemap.get(twitterid);
     }
 
     public static ResponseEntity<Integer> createTwitter(Map<String, Object> bodymap) {
@@ -136,19 +136,19 @@ public class DataManager {
                 return new ResponseEntity<>(-1, HttpStatus.NOT_FOUND);
             }
             int id = 0;
-            while(twiitermap.get(id)!=null) {
+            while(articlemap.get(id)!=null) {
                 id++;
             }
-            boardmap.get(board).addTwitter(id);
-            usermap.get(writer).addTwitter(id);
-            twiitermap.put(id, new TwitterData(id, writer, board));
+            boardmap.get(board).addArticle(id);
+            usermap.get(writer).addArticle(id);
+            articlemap.put(id, new ArticleData(id, writer, board));
             return new ResponseEntity<>(id, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(-1, HttpStatus.BAD_REQUEST);
     }
 
     public static ResponseEntity<Boolean> editTwitter(int id, Map<String, Object> bodymap) {
-        TwitterData data = twiitermap.get(id);
+        ArticleData data = articlemap.get(id);
         if(data==null) {
             return new ResponseEntity<>(false, HttpStatus.resolve(404));
         }
@@ -165,13 +165,13 @@ public class DataManager {
     }
 
     public static ResponseEntity<Boolean> deleteTwitter(int id) {
-        TwitterData data = twiitermap.get(id);
+        ArticleData data = articlemap.get(id);
         if(data==null) {
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
-        twiitermap.remove(id);
-        boardmap.get(data.getBoard()).removeTwitter(id);
-        usermap.get(data.getWriter()).removeTwitter(id);
+        articlemap.remove(id);
+        boardmap.get(data.getBoard()).removeArticle(id);
+        usermap.get(data.getWriter()).removeArticle(id);
         return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
     }
 
@@ -193,12 +193,12 @@ public class DataManager {
         return data;
     }
 
-    public static TwitterData[] getTwittersArticle() {
-        Object[] ids = getTwitterdatas().toArray();
+    public static ArticleData[] getTwittersArticle() {
+        Object[] ids = getArticledatas().toArray();
         int size = ids.length;
-        TwitterData[] data = new TwitterData[size];
+        ArticleData[] data = new ArticleData[size];
         for(int i = 0; i<size; i++) {
-            data[i] = twiitermap.get((Integer) ids[i]);
+            data[i] = articlemap.get((Integer) ids[i]);
         }
         return data;
     }
