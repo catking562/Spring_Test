@@ -11,6 +11,7 @@ import taewookim.demo.repositorys.BoardRepository;
 import taewookim.demo.repositorys.UserRepository;
 
 import java.util.List;
+import java.util.Map;
 
 public class Service {
 
@@ -53,11 +54,57 @@ public class Service {
     public ArticleDTO[] getArticlesFromBoardID(int boardid) {
         BoardData board = boardrepository.findFromId(boardid);
         List<Integer> articleids = board.getArticles();
-        ArticleDTO[] articles = new ArticleDTO[articleids.size()];
-        for(int i = 0; i<articleids.size(); i++) {
+        int size = articleids.size();
+        ArticleDTO[] articles = new ArticleDTO[size];
+        for(int i = 0; i<size; i++) {
             articles[i] = getArticleFromID(articleids.get(i));
         }
         return articles;
+    }
+
+    public UserDTO createUser() {
+        UserData user = userrepository.create();
+        return getUserFromID(user.getId());
+    }
+
+    public BoardDTO createBoard(String name) {
+        BoardData board = boardrepository.create(name);
+        return getBoardFromID(board.getId());
+    }
+
+    public ArticleDTO createArticle(int writer, int board) {
+        ArticleData article = articlerepository.create(writer, board);
+        return getArticleFromID(article.getId());
+    }
+
+    public UserDTO[] getUsers() {
+        UserData[] users = userrepository.getAll();
+        int length = users.length;
+        UserDTO[] userdtos = new UserDTO[length];
+        for(int i = 0; i<length; i++) {
+            userdtos[i] = getUserFromID(users[i].getId());
+        }
+        return userdtos;
+    }
+
+    public ArticleDTO[] getArticles() {
+        ArticleData[] articles = articlerepository.getAll();
+        int length = articles.length;
+        ArticleDTO[] articledtos = new ArticleDTO[length];
+        for(int i = 0; i<length; i++) {
+            articledtos[i] = getArticleFromID(articles[i].getId());
+        }
+        return articledtos;
+    }
+
+    public BoardDTO[] getBoards() {
+        BoardData[] boards = boardrepository.getAll();
+        int length = boards.length;
+        BoardDTO[] boarddtos = new BoardDTO[length];
+        for(int i = 0; i<length; i++) {
+            boarddtos[i] = getBoardFromID(boards[i].getId());
+        }
+        return boarddtos;
     }
 
 }
