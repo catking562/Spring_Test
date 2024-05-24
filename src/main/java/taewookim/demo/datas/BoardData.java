@@ -1,4 +1,4 @@
-package taewookim.demo.data;
+package taewookim.demo.datas;
 
 import java.util.ArrayList;
 

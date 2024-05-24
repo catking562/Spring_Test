@@ -1,14 +1,11 @@
 package taewookim.demo.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import taewookim.demo.DemoApplication;
-import taewookim.demo.data.BoardData;
-import taewookim.demo.data.DataManager;
-import taewookim.demo.data.TwitterData;
-import taewookim.demo.data.UserData;
+import taewookim.demo.datas.BoardData;
+import taewookim.demo.datas.TwitterData;
+import taewookim.demo.datas.UserData;
 
 import java.util.Map;
 import java.util.Set;

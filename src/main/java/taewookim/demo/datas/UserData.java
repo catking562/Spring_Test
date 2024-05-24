@@ -1,4 +1,4 @@
-package taewookim.demo.data;
+package taewookim.demo.datas;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

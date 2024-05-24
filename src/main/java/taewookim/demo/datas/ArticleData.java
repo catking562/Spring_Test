@@ -1,10 +1,8 @@
-package taewookim.demo.data;
+package taewookim.demo.datas;
 
-import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.Date;
 
 public class ArticleData {
 
