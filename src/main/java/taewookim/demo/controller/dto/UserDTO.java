@@ -6,7 +6,7 @@ public class UserDTO {
     public String nickname;
     public int age;
     public String email;
-    //public String pw;
+    public String pw;
 
     public UserDTO setID(int id) {
         this.id = id;

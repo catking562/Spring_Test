@@ -107,4 +107,52 @@ public class Service {
         return boarddtos;
     }
 
+    public BoardDTO updateBoard(int boardid, BoardDTO boarddto) {
+        BoardData board = boardrepository.findFromId(boardid);
+        if(boarddto.name!=null) {
+            board.setName(boarddto.name);
+        }
+        return getBoardFromID(boardid);
+    }
+
+    public UserDTO updateUser(int userid, UserDTO userdto) {
+        UserData user = userrepository.findFromId(userid);
+        if(userdto.age>0) {
+            user.setAge(userdto.age);
+        }
+        if(userdto.email!=null) {
+            user.setEmail(userdto.email);
+        }
+        if(userdto.nickname!=null) {
+            user.setNickName(userdto.nickname);
+        }
+        if(userdto.pw!=null) {
+            user.setPW(userdto.pw);
+        }
+        return getUserFromID(userid);
+    }
+
+    public ArticleDTO updateArticle(int articleid, ArticleDTO articledto) {
+        ArticleData article = articlerepository.findFromId(articleid);
+        if(articledto.context!=null) {
+            article.setContext(articledto.context);
+        }
+        if(articledto.title!=null) {
+            article.setTitle(articledto.title);
+        }
+        return getArticleFromID(articleid);
+    }
+
+    public void deleteUser(int userid) {
+        userrepository.delete(userid);
+    }
+
+    public void deleteBoard(int boardid) {
+        boardrepository.delete(boardid);
+    }
+
+    public void deleteArticle(int articleid) {
+        articlerepository.delete(articleid);
+    }
+
 }
