@@ -1,5 +1,6 @@
 package taewookim.demo.controller;
 
+import jakarta.validation.constraints.NotNull;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,10 +16,9 @@ import java.net.URI;
 @RestController
 public class JsonController {
 
-    private final Service service;
+    public static final Service service = new Service();
 
     public JsonController() {
-        service = new Service();
     }
 
     @GetMapping("/users")
@@ -47,7 +47,7 @@ public class JsonController {
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable int id) {
+    public ResponseEntity<?> deleteUser(@PathVariable @NotNull int id) {
         service.deleteUser(id);
         return ResponseEntity.noContent().build();
     }

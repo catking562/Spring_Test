@@ -13,7 +13,7 @@ public class ViewController {
 
     @GetMapping("/posts")
     public String getViewArticles(Model model) {
-        model.addAttribute()
+        model.addAttribute("boardlist", JsonController.service.getViewBoards());
         return "viewarticles";
     }
 

@@ -3,6 +3,7 @@ package taewookim.demo.service;
 import taewookim.demo.controller.dto.ArticleDTO;
 import taewookim.demo.controller.dto.BoardDTO;
 import taewookim.demo.controller.dto.UserDTO;
+import taewookim.demo.controller.dto.ViewBoardDTO;
 import taewookim.demo.datas.ArticleData;
 import taewookim.demo.datas.BoardData;
 import taewookim.demo.datas.UserData;
@@ -153,6 +154,21 @@ public class Service {
 
     public void deleteArticle(int articleid) {
         articlerepository.delete(articleid);
+    }
+
+    public ViewBoardDTO[] getViewBoards() {
+        BoardDTO[] boards = getBoards();
+        int size = boards.length;
+        ViewBoardDTO[] viewboards = new ViewBoardDTO[size];
+        for(int i = 0; i<size; i++) {
+            BoardDTO board = boards[i];
+            int boardid = board.id;
+            viewboards[i] = new ViewBoardDTO()
+                    .setId(boardid)
+                    .setName(board.name)
+                    .setArticles(getArticlesFromBoardID(boardid));
+        }
+        return viewboards;
     }
 
 }
