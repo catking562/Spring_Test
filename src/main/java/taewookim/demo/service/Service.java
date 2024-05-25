@@ -21,7 +21,9 @@ public class Service {
     private UserRepository userrepository;
 
     public Service() {
-
+        articlerepository = new ArticleRepository();
+        boardrepository = new BoardRepository();
+        userrepository = new UserRepository();
     }
 
     public BoardDTO getBoardFromID(int boardid) {
