@@ -1,13 +1,10 @@
 package taewookim.demo.controller;
 
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import taewookim.demo.controller.dto.*;
-import taewookim.demo.datas.BoardData;
 import taewookim.demo.service.Service;
 
 import java.net.URI;

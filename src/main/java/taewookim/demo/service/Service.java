@@ -12,7 +12,6 @@ import taewookim.demo.repositorys.BoardRepository;
 import taewookim.demo.repositorys.UserRepository;
 
 import java.util.List;
-import java.util.Map;
 
 public class Service {
 
@@ -143,6 +142,7 @@ public class Service {
         if(articledto.title!=null) {
             article.setTitle(articledto.title);
         }
+        article.updateEditDate();
         return getArticleFromID(articleid);
     }
 

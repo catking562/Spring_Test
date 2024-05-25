@@ -1,8 +1,5 @@
 package taewookim.demo.controller.dto;
 
-import taewookim.demo.datas.BoardData;
-import taewookim.demo.datas.UserData;
-
 /*
 * ArticleDTO를 어떻게 만들지 고민하다가, 빌더를 만들 때 처럼 자기 자신을 반환하는 형태로 만들었습니다.
 * */
