@@ -1,13 +1,13 @@
 package taewookim.demo.controller;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import taewookim.demo.controller.dto.ArticleDTO;
-import taewookim.demo.controller.dto.BoardDTO;
-import taewookim.demo.controller.dto.UserDTO;
+import taewookim.demo.controller.dto.*;
+import taewookim.demo.controller.dto.GetBoardDTO;
 import taewookim.demo.datas.BoardData;
 import taewookim.demo.service.Service;
 
@@ -63,8 +63,8 @@ public class JsonController {
     }
 
     @PostMapping("/boards")
-    public ResponseEntity<?> createBoard(@RequestBody @Validated String name) {
-        BoardDTO boarddto = service.createBoard(name);
+    public ResponseEntity<?> createBoard(@RequestBody @Validated GetBoardDTOForCreated getboarddto) {
+        BoardDTO boarddto = service.createBoard(getboarddto.name);
         return ResponseEntity.created(URI.create(new StringBuilder("/boards/")
                 .append(boarddto.id).toString())).build();
     }
@@ -91,8 +91,8 @@ public class JsonController {
     }
 
     @PostMapping("/articles")
-    public ResponseEntity<?> createArticle(@RequestBody @Validated int writer, @RequestBody @Validated int board) {
-        ArticleDTO article = service.createArticle(writer, board);
+    public ResponseEntity<?> createArticle(@RequestBody @Validated GetArticleDTOForCreated articledto) {
+        ArticleDTO article = service.createArticle(articledto.writer, articledto.board);
         return ResponseEntity.created(URI.create(new StringBuilder("/articles/").append(article.id).toString())).build();
     }
 
