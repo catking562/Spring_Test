@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import taewookim.demo.controller.dto.*;
-import taewookim.demo.controller.dto.GetBoardDTO;
 import taewookim.demo.datas.BoardData;
 import taewookim.demo.service.Service;
 
