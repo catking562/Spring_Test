@@ -6,12 +6,13 @@
 </head>
 <body>
 <h th:each="board : ${boardlist}">
-<h th:each="article : ${board.articles}">
-    <h1>제목: <h th:text="${article.title}" /></h1>
-    <h3>내용: <h th:text="${article.context}" /></h3>
-    <h6>작성자: <h th:text="${article.writer.nickname}" /> | 작성일: <h th:text="${twitter.writedate}" /> | 마지막 수정: <h th:text="${article.editdate}" /></h6>
-    <br>
-</h>
+    <h2>게시판: <h th:text="${board.name}" /></h2>
+    <h th:each="article : ${board.articles}">
+        <h1>제목: <h th:text="${article.title}" /></h1>
+        <h3>내용: <h th:text="${article.context}" /></h3>
+        <h6>작성자: <h th:text="${article.writer.nickname}" /> | 작성일: <h th:text="${article.writedate}" /> | 마지막 수정: <h th:text="${article.editdate}" /></h6>
+        <br>
+    </h>
 </h>
 </body>
 </html>

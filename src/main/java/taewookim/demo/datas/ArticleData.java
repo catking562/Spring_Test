@@ -3,6 +3,7 @@ package taewookim.demo.datas;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class ArticleData {
 
@@ -26,7 +27,7 @@ public class ArticleData {
 
     public static String getNowDate() {
         ZoneId zi = ZoneId.of("+9");
-        return new StringBuilder(LocalDate.now(zi).toString()).append(" ").append(LocalTime.now(zi)).toString();
+        return new StringBuilder(LocalDate.now(zi).toString()).append(" ").append(LocalTime.now(zi).format(DateTimeFormatter.ofPattern("HH:mm:ss"))).toString();
     }
     
 

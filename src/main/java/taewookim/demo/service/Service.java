@@ -76,6 +76,9 @@ public class Service {
 
     public ArticleDTO createArticle(int writer, int board) {
         ArticleData article = articlerepository.create(writer, board);
+        int id = article.getId();
+        boardrepository.findFromId(board).addArticle(id);
+        userrepository.findFromId(writer).addArticle(id);
         return getArticleFromID(article.getId());
     }
 
@@ -147,15 +150,32 @@ public class Service {
     }
 
     public void deleteUser(int userid) {
+        UserData user = userrepository.findFromId(userid);
+        if(user==null) {
+            return;
+        }
         userrepository.delete(userid);
+        for(Integer arid : user.getArticles()) {
+            deleteArticle(arid);
+        }
     }
 
     public void deleteBoard(int boardid) {
+        BoardData board = boardrepository.findFromId(boardid);
+        if(board==null) {
+            return;
+        }
         boardrepository.delete(boardid);
+        for(Integer arid : board.getArticles()) {
+            deleteArticle(arid);
+        }
     }
 
     public void deleteArticle(int articleid) {
+        ArticleData article = articlerepository.findFromId(articleid);
         articlerepository.delete(articleid);
+        userrepository.findFromId(article.getWriter()).removeArticle(articleid);
+        boardrepository.findFromId(article.getBoard()).removeArticle(articleid);
     }
 
     public ViewBoardDTO[] getViewBoards() {
@@ -165,10 +185,11 @@ public class Service {
         for(int i = 0; i<size; i++) {
             BoardDTO board = boards[i];
             int boardid = board.id;
+            ArticleDTO[] articles = getArticlesFromBoardID(boardid);
             viewboards[i] = new ViewBoardDTO()
                     .setId(boardid)
                     .setName(board.name)
-                    .setArticles(getArticlesFromBoardID(boardid));
+                    .setArticles(articles);
         }
         return viewboards;
     }
