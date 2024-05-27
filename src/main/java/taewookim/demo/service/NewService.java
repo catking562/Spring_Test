@@ -57,8 +57,9 @@ public class NewService {
         return repository.createBoard(new BoardEntity(null, name!=null?name:"New Board"));
     }
 
-    public Long createArticle(Long writer, Long board, String title, String context, String writingdate, String editingdate) {
-        return repository.createArticle(new ArticleEntity(null, writer, board, title, context, writingdate, editingdate));
+    public Long createArticle(Long writer, Long board, String title, String context) {
+        return repository.createArticle(new ArticleEntity(null, writer!=null?writer:-1, board!=null?board:-1
+                , title!=null?title:"New Article", context!=null?context:"New Article's Context", null, null));
     }
 
     public UserDTO[] getUsers() {
@@ -94,16 +95,25 @@ public class NewService {
         return returns;
     }
 
-    public void updateBoard(Long boardid, BoardDTO boarddto) {
-        repository.editBoard(new BoardEntity(boardid, boarddto.name()));
+    public boolean updateBoard(Long boardid, BoardDTO boarddto) {
+        BoardDTO dto = getBoardFromID(boardid);
+        String name = boarddto.name();
+        repository.editBoard(new BoardEntity(boardid, name!=null?name:dto.name()));
     }
 
     public void updateUser(Long userid, UserDTO userdto) {
-        repository.editUser(new UserEntity(userid, userdto.nickname(), userdto.email(), userdto.pw()));
+        UserDTO dto = getUserFromID(userid);
+        String nickname = userdto.nickname();
+        String email = userdto.email();
+        String pw = userdto.pw();
+        repository.editUser(new UserEntity(userid, nickname!=null?nickname:dto.nickname(), email!=null?email:dto.email(), pw!=null?pw:dto.pw()));
     }
 
     public void updateArticle(Long articleid, ArticleDTO articledto) {
-        repository.editArticle(new ArticleEntity(articleid, null, null, articledto.title(), articledto.context(), null, null));
+        ArticleDTO dto = getArticleFromID(articleid);
+        String title = articledto.title();
+        String context = articledto.context();
+        repository.editArticle(new ArticleEntity(articleid, null, null, title!=null?title:dto.title(), context!=null?context:dto.context(), null, null));
     }
 
     public void deleteUser(Long userid) {
