@@ -95,7 +95,7 @@ public class NewService {
         return returns;
     }
 
-    public boolean updateBoard(Long boardid, BoardDTO boarddto) {
+    public void updateBoard(Long boardid, BoardDTO boarddto) {
         BoardDTO dto = getBoardFromID(boardid);
         String name = boarddto.name();
         repository.editBoard(new BoardEntity(boardid, name!=null?name:dto.name()));

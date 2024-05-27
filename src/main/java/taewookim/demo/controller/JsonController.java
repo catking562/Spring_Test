@@ -69,7 +69,8 @@ public class JsonController {
 
     @PutMapping("/boards/{id}")
     public ResponseEntity<?> updateBoard(@PathVariable Long id, @RequestBody BoardDTO board) {
-        return ResponseEntity.ok(service.updateBoard(id, board));
+        service.updateBoard(id, board);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/boards/{id}")
