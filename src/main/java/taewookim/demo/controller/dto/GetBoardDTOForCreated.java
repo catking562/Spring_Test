@@ -1,7 +1,7 @@
 package taewookim.demo.controller.dto;
 
-public class GetBoardDTOForCreated {
+public record GetBoardDTOForCreated(
 
-    public String name;
-
+    String name
+){
 }

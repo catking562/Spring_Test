@@ -1,6 +1,6 @@
-package taewookim.demo.controller.dto;
+package taewookim.demo.entities;
 
-public record UserDTO(
+public record UserEntity(
         Long id,
         String nickname,
         String email,

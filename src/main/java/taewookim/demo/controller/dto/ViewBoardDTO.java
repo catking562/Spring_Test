@@ -1,24 +1,11 @@
 package taewookim.demo.controller.dto;
 
-public class ViewBoardDTO {
+import java.util.List;
 
-    public int id;
-    public String name;
-    public ArticleDTO[] articles;
+public record ViewBoardDTO(
 
-    public ViewBoardDTO setId(int id) {
-        this.id = id;
-        return this;
-    }
-
-    public ViewBoardDTO setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public ViewBoardDTO setArticles(ArticleDTO[] articles) {
-        this.articles = articles;
-        return this;
-    }
+    Long id,
+    String name,
+    ArticleDTO[] articles){
 
 }

@@ -1,8 +1,8 @@
 package taewookim.demo.controller.dto;
 
-public class GetArticleDTOForCreated {
+public record GetArticleDTOForCreated(
 
-    public int writer;
-    public int board;
-
+    Long writer,
+    Long board
+){
 }
