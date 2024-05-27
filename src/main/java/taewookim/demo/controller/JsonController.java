@@ -79,28 +79,29 @@ public class JsonController {
     }
 
     @GetMapping("/articles")
-    public ResponseEntity<?> getArticles() {
-        return ResponseEntity.ok(service.getArticles());
+    public ResponseEntity<?> getArticles(@RequestParam Long boardId) {
+        return ResponseEntity.ok(service.getSimpleArticlesByBoard(boardId));
     }
 
     @GetMapping("/articles/{id}")
     public ResponseEntity<?> getArticle(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getArticleFromID(id));
+        return ResponseEntity.ok(service.getSimpleArticleById(id));
     }
 
     @PostMapping("/articles")
     public ResponseEntity<?> createArticle(@RequestBody @Validated GetArticleDTOForCreated articledto) {
-        Long article = service.createArticle(articledto.writer(), articledto.board(), articledto.title(), articledto.context());
-        return ResponseEntity.created(URI.create(new StringBuilder("/articles/").append(article).toString())).build();
+        Long article = service.createArticle(articledto.author_id(), articledto.board_id(), articledto.title(), articledto.content());
+        return ResponseEntity.created(URI.create(new StringBuilder("/articles/")
+                .append(article).toString())).body(service.getSimpleArticleById(article));
     }
 
     @PutMapping("/articles/{id}")
     public ResponseEntity<?> updateArticle(@PathVariable Long id, @RequestBody ArticleDTO articledto) {
         service.updateArticle(id, articledto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(service.getSimpleArticleById(id));
     }
 
-    @DeleteMapping("/article/{id}")
+    @DeleteMapping("/articles/{id}")
     public ResponseEntity<?> deleteArticle(@PathVariable Long id) {
         service.deleteArticle(id);
         return ResponseEntity.noContent().build();

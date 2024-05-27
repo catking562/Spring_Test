@@ -1,10 +1,7 @@
 package taewookim.demo.service;
 
 import org.apache.catalina.User;
-import taewookim.demo.controller.dto.ArticleDTO;
-import taewookim.demo.controller.dto.BoardDTO;
-import taewookim.demo.controller.dto.UserDTO;
-import taewookim.demo.controller.dto.ViewBoardDTO;
+import taewookim.demo.controller.dto.*;
 import taewookim.demo.entities.ArticleEntity;
 import taewookim.demo.entities.BoardEntity;
 import taewookim.demo.entities.UserEntity;
@@ -109,8 +106,8 @@ public class NewService {
     public void updateArticle(Long articleid, ArticleDTO articledto) {
         ArticleDTO dto = getArticleFromID(articleid);
         String title = articledto.title();
-        String context = articledto.context();
-        repository.editArticle(new ArticleEntity(articleid, null, null, title!=null?title:dto.title(), context!=null?context:dto.context(), null, null));
+        String context = articledto.content();
+        repository.editArticle(new ArticleEntity(articleid, null, null, title!=null?title:dto.title(), context!=null?context:dto.content(), null, null));
     }
 
     public void deleteUser(Long userid) {
@@ -132,6 +129,27 @@ public class NewService {
         for(int i = 0; i<size; i++) {
             BoardDTO boarddto = boarddtos[i];
             returns[i] = new ViewBoardDTO(boarddto.id(), boarddto.name(), getArticlesFromBoardID(boarddto.id()));
+        }
+        return returns;
+    }
+
+    public ViewBoardDTO getViewBoardById(Long boardid) {
+        BoardDTO boarddto = getBoardFromID(boardid);
+        return new ViewBoardDTO(boardid, boarddto.name(), getArticlesFromBoardID(boardid));
+    }
+
+    public SimpleArticleDTO getSimpleArticleById(Long articleid) {
+        ArticleEntity article = repository.getArticleById(articleid);
+        return new SimpleArticleDTO(articleid, article.writer(), article.board(), article.title(), article.context(), article.writingdate(), article.editingdate());
+    }
+
+    public SimpleArticleDTO[] getSimpleArticlesByBoard(Long boardid) {
+        List<ArticleEntity> list = repository.getArticlesFromBoardId(boardid);
+        int size = list.size();
+        SimpleArticleDTO[] returns = new SimpleArticleDTO[size];
+        for(int i = 0; i<size; i++) {
+            ArticleEntity entity = list.get(i);
+            returns[i] = new SimpleArticleDTO(entity.id(), entity.writer(), entity.board(), entity.title(), entity.context(), entity.writingdate(), entity.editingdate());
         }
         return returns;
     }

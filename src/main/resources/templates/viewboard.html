@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Board Posts</title>
+</head>
+<body>
+<h1>Board: <h th:text="${board.name}" /></h1>
+<ul>
+    <h th:each="article : ${board.articles}">
+        <li><a th:href="@{/articles/{id}(id = ${article.id})}"><h th:text="${article.title}" /></a></li>
+    </h>
+</ul>
+</body>
+</html>

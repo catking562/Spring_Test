@@ -6,7 +6,7 @@ public record ArticleDTO(
     UserDTO writer,
     BoardDTO board,
     String title,
-    String context,
+    String content,
     String writedate,
     String editdate)
 

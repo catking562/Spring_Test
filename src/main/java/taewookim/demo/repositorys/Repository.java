@@ -74,15 +74,15 @@ public class Repository {
     }
 
     public List<BoardEntity> getAllBoard() {
-        return jdbc.query("SELECT * FROM member", (result, row)->{
-            return new BoardEntity(result.getLong("id"), result.getString("nmae"));
+        return jdbc.query("SELECT * FROM board", (result, row)->{
+            return new BoardEntity(result.getLong("id"), result.getString("name"));
         });
     }
 
     public Long createBoard(BoardEntity boardentity) {
         KeyHolder holder = new GeneratedKeyHolder();
         jdbc.update(con -> {
-            PreparedStatement statement = con.prepareStatement("INSERT FROM board (name) VALUES (?)");
+            PreparedStatement statement = con.prepareStatement("INSERT INTO board (name) VALUES (?)", new String[]{"id"});
             statement.setString(1, boardentity.name());
             return statement;
         }, holder);
@@ -90,7 +90,7 @@ public class Repository {
     }
 
     public void deleteBoard(Long id) {
-        jdbc.update("DELETE FROM member WHERE id = ?", id);
+        jdbc.update("DELETE FROM board WHERE id = ?", id);
     }
 
     public void editBoard(BoardEntity boardentity) {
@@ -105,8 +105,8 @@ public class Repository {
                     , result.getLong("board_id")
                     , result.getString("title")
                     , result.getString("content")
-                    , result.getDate("created_date").toString()
-                    , result.getDate("modified_date").toString()
+                    , result.getString("created_date")
+                    , result.getString("modified_date")
             );
         }, boardid);
     }
@@ -118,10 +118,10 @@ public class Repository {
                     , result.getLong("board_id")
                     , result.getString("title")
                     , result.getString("content")
-                    , result.getDate("created_date").toString()
-                    , result.getDate("modified_date").toString()
+                    , result.getString("created_date")
+                    , result.getString("modified_date")
             );
-        });
+        }, id);
     }
 
     public List<ArticleEntity> getAllArticles() {
@@ -131,8 +131,8 @@ public class Repository {
                     result.getLong("board_id"),
                     result.getString("title"),
                     result.getString("content"),
-                    result.getDate("created_date").toString(),
-                    result.getDate("modified_date").toString());
+                    result.getString("created_date"),
+                    result.getString("modified_date"));
         });
     }
 

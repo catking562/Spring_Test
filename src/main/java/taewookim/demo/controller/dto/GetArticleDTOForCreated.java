@@ -2,9 +2,9 @@ package taewookim.demo.controller.dto;
 
 public record GetArticleDTOForCreated(
 
-    Long writer,
-    Long board,
+    Long board_id,
+    Long author_id,
     String title,
-    String context
+    String content
 ){
 }
