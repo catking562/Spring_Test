@@ -2,6 +2,7 @@ package taewookim.demo.datas;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.sql.DriverManager;
 import java.util.ArrayList;
 
 public class UserData {
