@@ -2,19 +2,30 @@ package taewookim.demo.repositorys;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import taewookim.demo.entities.ArticleEntity;
 import taewookim.demo.entities.BoardEntity;
 import taewookim.demo.entities.UserEntity;
 
+import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.util.List;
 
 public class Repository {
 
+    private final JdbcTemplate jdbc;
+
     @Autowired
-    private JdbcTemplate jdbc;
+    public Repository() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/bcsd?serverTimezone=Asia/Seoul");
+        dataSource.setUsername("root");
+        dataSource.setPassword("1234");
+        jdbc = new JdbcTemplate(dataSource);
+    }
 
     public UserEntity getUserById(Long id) {
         return jdbc.queryForObject("SELECT name, email, password FROM member WHERE id = ?", (result, row)->{
