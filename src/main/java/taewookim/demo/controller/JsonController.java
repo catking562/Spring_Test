@@ -6,7 +6,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import taewookim.demo.controller.dto.*;
 import taewookim.demo.service.NewService;
-import taewookim.demo.service.Service;
 
 import java.net.URI;
 
