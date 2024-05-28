@@ -1,39 +1,41 @@
 package taewookim.demo.service;
 
 import org.apache.catalina.User;
+import org.springframework.transaction.annotation.Transactional;
 import taewookim.demo.controller.dto.*;
+import taewookim.demo.daos.Dao;
 import taewookim.demo.entities.ArticleEntity;
 import taewookim.demo.entities.BoardEntity;
 import taewookim.demo.entities.UserEntity;
-import taewookim.demo.repositorys.Repository;
 
 import java.util.List;
 
+@Transactional
 public class NewService {
 
-    Repository repository;
+    Dao dao;
 
     public NewService() {
-        repository = new Repository();
+        dao = new Dao();
     }
 
     public BoardDTO getBoardFromID(Long boardid) {
-        BoardEntity entity = repository.getBoardById(boardid);
+        BoardEntity entity = dao.getBoardById(boardid);
         return new BoardDTO(boardid, entity.name());
     }
 
     public UserDTO getUserFromID(Long userid) {
-        UserEntity entity = repository.getUserById(userid);
+        UserEntity entity = dao.getUserById(userid);
         return new UserDTO(userid, entity.nickname(), entity.email(), entity.pw());
     }
 
     public ArticleDTO getArticleFromID(Long articleid) {
-        ArticleEntity entity = repository.getArticleById(articleid);
+        ArticleEntity entity = dao.getArticleById(articleid);
         return new ArticleDTO(articleid, getUserFromID(entity.writer()), getBoardFromID(entity.board()), entity.title(), entity.context(), entity.writingdate(), entity.editingdate());
     }
 
     public ArticleDTO[] getArticlesFromBoardID(Long boardid) {
-        List<ArticleEntity> entities = repository.getArticlesFromBoardId(boardid);
+        List<ArticleEntity> entities = dao.getArticlesFromBoardId(boardid);
         int size = entities.size();
         ArticleDTO[] returns = new ArticleDTO[size];
         for(int i = 0; i<size; i++) {
@@ -44,20 +46,20 @@ public class NewService {
     }
 
     public Long createUser(String nickname, String email, String pw) {
-        return repository.createUser(new UserEntity(null, nickname!=null?nickname:"New User", email!=null?email:"Null", pw!=null?pw:"1234"));
+        return dao.createUser(new UserEntity(null, nickname!=null?nickname:"New User", email!=null?email:"Null", pw!=null?pw:"1234"));
     }
 
     public Long createBoard(String name) {
-        return repository.createBoard(new BoardEntity(null, name!=null?name:"New Board"));
+        return dao.createBoard(new BoardEntity(null, name!=null?name:"New Board"));
     }
 
     public Long createArticle(Long writer, Long board, String title, String context) {
-        return repository.createArticle(new ArticleEntity(null, writer!=null?writer:-1, board!=null?board:-1
+        return dao.createArticle(new ArticleEntity(null, writer!=null?writer:-1, board!=null?board:-1
                 , title!=null?title:"New Article", context!=null?context:"New Article's Context", null, null));
     }
 
     public UserDTO[] getUsers() {
-        List<UserEntity> users = repository.getAllUser();
+        List<UserEntity> users = dao.getAllUser();
         int size = users.size();
         UserDTO[] returns = new UserDTO[size];
         for(int i = 0; i<size; i++) {
@@ -68,7 +70,7 @@ public class NewService {
     }
 
     public ArticleDTO[] getArticles() {
-        List<ArticleEntity> articles = repository.getAllArticles();
+        List<ArticleEntity> articles = dao.getAllArticles();
         int size = articles.size();
         ArticleDTO[] returns = new ArticleDTO[size];
         for(int i = 0; i<size; i++) {
@@ -79,7 +81,7 @@ public class NewService {
     }
 
     public BoardDTO[] getBoards() {
-        List<BoardEntity> boards = repository.getAllBoard();
+        List<BoardEntity> boards = dao.getAllBoard();
         int size = boards.size();
         BoardDTO[] returns = new BoardDTO[size];
         for(int i = 0; i<size; i++) {
@@ -92,34 +94,34 @@ public class NewService {
     public void updateBoard(Long boardid, BoardDTO boarddto) {
         BoardDTO dto = getBoardFromID(boardid);
         String name = boarddto.name();
-        repository.editBoard(new BoardEntity(boardid, name!=null?name:dto.name()));
+        dao.editBoard(new BoardEntity(boardid, name!=null?name:dto.name()));
     }
 
     public void updateUser(Long userid, UserDTO userdto) {
         UserDTO dto = getUserFromID(userid);
-        String nickname = userdto.nickname();
+        String nickname = userdto.name();
         String email = userdto.email();
-        String pw = userdto.pw();
-        repository.editUser(new UserEntity(userid, nickname!=null?nickname:dto.nickname(), email!=null?email:dto.email(), pw!=null?pw:dto.pw()));
+        String pw = userdto.password();
+        dao.editUser(new UserEntity(userid, nickname!=null?nickname:dto.name(), email!=null?email:dto.email(), pw!=null?pw:dto.password()));
     }
 
     public void updateArticle(Long articleid, ArticleDTO articledto) {
         ArticleDTO dto = getArticleFromID(articleid);
         String title = articledto.title();
         String context = articledto.content();
-        repository.editArticle(new ArticleEntity(articleid, null, null, title!=null?title:dto.title(), context!=null?context:dto.content(), null, null));
+        dao.editArticle(new ArticleEntity(articleid, null, null, title!=null?title:dto.title(), context!=null?context:dto.content(), null, null));
     }
 
     public void deleteUser(Long userid) {
-        repository.deleteUser(userid);
+        dao.deleteUser(userid);
     }
 
     public void deleteBoard(Long boardid) {
-        repository.deleteBoard(boardid);
+        dao.deleteBoard(boardid);
     }
 
     public void deleteArticle(Long articleid) {
-        repository.deleteArticle(articleid);
+        dao.deleteArticle(articleid);
     }
 
     public ViewBoardDTO[] getViewBoards() {
@@ -139,12 +141,12 @@ public class NewService {
     }
 
     public SimpleArticleDTO getSimpleArticleById(Long articleid) {
-        ArticleEntity article = repository.getArticleById(articleid);
+        ArticleEntity article = dao.getArticleById(articleid);
         return new SimpleArticleDTO(articleid, article.writer(), article.board(), article.title(), article.context(), article.writingdate(), article.editingdate());
     }
 
     public SimpleArticleDTO[] getSimpleArticlesByBoard(Long boardid) {
-        List<ArticleEntity> list = repository.getArticlesFromBoardId(boardid);
+        List<ArticleEntity> list = dao.getArticlesFromBoardId(boardid);
         int size = list.size();
         SimpleArticleDTO[] returns = new SimpleArticleDTO[size];
         for(int i = 0; i<size; i++) {

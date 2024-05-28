@@ -1,8 +1,8 @@
 package taewookim.demo.controller.dto;
 
 public record GetUserDTOForCreated(
-        String nickname,
+        String name,
         String email,
-        String pw
+        String password
 ) {
 }

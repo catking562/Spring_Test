@@ -3,11 +3,11 @@ package taewookim.demo.controller.dto;
 public record ArticleDTO(
 
     Long id,
-    UserDTO writer,
-    BoardDTO board,
+    UserDTO author_id,
+    BoardDTO board_id,
     String title,
     String content,
-    String writedate,
-    String editdate)
+    String created_date,
+    String modified_date)
 
 {}

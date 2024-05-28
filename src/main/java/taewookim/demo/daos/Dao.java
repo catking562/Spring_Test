@@ -1,4 +1,4 @@
-package taewookim.demo.repositorys;
+package taewookim.demo.daos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,12 +13,12 @@ import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.util.List;
 
-public class Repository {
+public class Dao {
 
     private final JdbcTemplate jdbc;
 
     @Autowired
-    public Repository() {
+    public Dao() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/bcsd?serverTimezone=Asia/Seoul");

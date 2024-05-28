@@ -2,8 +2,8 @@ package taewookim.demo.controller.dto;
 
 public record UserDTO(
         Long id,
-        String nickname,
+        String name,
         String email,
-        String pw
+        String password
 ) {
 }

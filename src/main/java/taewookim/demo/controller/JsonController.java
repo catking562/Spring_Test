@@ -29,7 +29,7 @@ public class JsonController {
 
     @PostMapping("/users")
     public ResponseEntity<?> createUser(@RequestBody @Validated GetUserDTOForCreated dto) {
-        Long userdto = service.createUser(dto.nickname(), dto.email(), dto.pw());
+        Long userdto = service.createUser(dto.name(), dto.email(), dto.password());
         return ResponseEntity
                 .created(URI.create(new StringBuilder("/users/")
                                 .append(userdto)
