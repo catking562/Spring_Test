@@ -10,7 +10,6 @@ import taewookim.demo.entities.UserEntity;
 
 import java.util.List;
 
-@Transactional
 public class NewService {
 
     Dao dao;
@@ -40,7 +39,8 @@ public class NewService {
         ArticleDTO[] returns = new ArticleDTO[size];
         for(int i = 0; i<size; i++) {
             ArticleEntity entity = entities.get(i);
-            returns[i] = new ArticleDTO(entity.id(), getUserFromID(entity.writer()), getBoardFromID(entity.board()), entity.title(), entity.context(), entity.writingdate(), entity.editingdate());
+            returns[i] = new ArticleDTO(entity.id(), getUserFromID(entity.writer()), getBoardFromID(entity.board())
+                    , entity.title(), entity.context(), entity.writingdate(), entity.editingdate());
         }
         return returns;
     }
